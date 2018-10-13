@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">Football Apps</string>
+
+    <string name="title_matches">Matches</string>
+    <string name="title_teams">Teams</string>
+    <string name="title_favorites">Favorites</string>
 </resources>
