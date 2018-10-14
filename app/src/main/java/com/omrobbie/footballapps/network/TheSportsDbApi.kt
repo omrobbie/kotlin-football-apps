@@ -4,18 +4,21 @@ import com.omrobbie.footballapps.BuildConfig
 
 object TheSportsDbApi {
 
+    private const val url = "${BuildConfig.BASE_URL}${BuildConfig.TSDB_API_KEY}"
+
     fun getLeagueAll(): String {
-        return "${BuildConfig.BASE_URL}${BuildConfig.TSDB_API_KEY}" +
-                "/all_leagues.php"
+        return "$url/all_leagues.php"
     }
 
-    fun getLeagueNext(id: String): String {
-        return "${BuildConfig.BASE_URL}${BuildConfig.TSDB_API_KEY}" +
-                "/eventsnextleague.php?id=${id}"
+    fun getEventsNext(id: String): String {
+        return "$url/eventsnextleague.php?id=$id"
     }
 
-    fun getLeagueLast(id: String): String {
-        return "${BuildConfig.BASE_URL}${BuildConfig.TSDB_API_KEY}" +
-                "/eventspastleague.php?id=${id}"
+    fun getEventsLast(id: String): String {
+        return "$url/eventspastleague.php?id=$id"
+    }
+
+    fun getEventsSearch(eventName: String): String {
+        return "$url/searchevents.php?e=$eventName"
     }
 }

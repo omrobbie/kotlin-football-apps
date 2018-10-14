@@ -7,7 +7,7 @@ import kotlinx.android.parcel.Parcelize
 data class EventsItem(
         val id: Long?,
         val idEvent: String?,
-        val strDate: String?,
+        val dateEvent: String?,
         val strTime: String?,
 
         // home team

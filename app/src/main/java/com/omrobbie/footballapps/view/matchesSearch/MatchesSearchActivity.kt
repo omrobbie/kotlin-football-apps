@@ -5,15 +5,31 @@ import android.support.v7.app.AppCompatActivity
 import android.view.Menu
 import android.widget.SearchView
 
+import com.google.gson.Gson
+
 import com.omrobbie.footballapps.R
+import com.omrobbie.footballapps.adapter.MatchesAdapter
+import com.omrobbie.footballapps.model.EventsItem
+import com.omrobbie.footballapps.network.ApiRepository
+import com.omrobbie.footballapps.utils.invisible
+import com.omrobbie.footballapps.utils.visible
+
+import kotlinx.android.synthetic.main.activity_matches_search.*
 
 import org.jetbrains.anko.toast
 
-class MatchesSearchActivity : AppCompatActivity() {
+class MatchesSearchActivity : AppCompatActivity(), MatchesSearchView {
+
+    private lateinit var presenter: MatchesSearchPresenter
+
+    private lateinit var events: MutableList<EventsItem>
+    private lateinit var listAdapter: MatchesAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_matches_search)
+
+        setupEnv()
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -29,10 +45,51 @@ class MatchesSearchActivity : AppCompatActivity() {
         return super.onCreateOptionsMenu(menu)
     }
 
+    override fun showLoading() {
+        progress_bar.visible()
+        recycler_view.invisible()
+        tv_empty.invisible()
+    }
+
+    override fun hideLoading() {
+        progress_bar.invisible()
+        recycler_view.visible()
+        tv_empty.invisible()
+    }
+
+    override fun showEmptyData() {
+        progress_bar.invisible()
+        recycler_view.invisible()
+        tv_empty.visible()
+    }
+
+    override fun showEventList(data: MutableList<EventsItem>) {
+        events.clear()
+        events.addAll(data)
+        listAdapter.notifyDataSetChanged()
+        recycler_view.scrollToPosition(0)
+    }
+
+    private fun setupEnv() {
+        presenter = MatchesSearchPresenter(this, ApiRepository(), Gson())
+
+        presenter.getEventsSearch()
+
+        events = mutableListOf()
+        listAdapter = MatchesAdapter(events) {
+            toast("${it.strHomeTeam.toString()} ${getString(R.string.title_vs)} ${it.strAwayTeam.toString()}")
+        }
+
+        with(recycler_view) {
+            adapter = listAdapter
+            layoutManager = android.support.v7.widget.LinearLayoutManager(context)
+        }
+    }
+
     private fun listenSearchView(searchView: SearchView) {
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
-                toast(query.toString())
+                presenter.getEventsSearch(query.toString())
 
                 return true
             }

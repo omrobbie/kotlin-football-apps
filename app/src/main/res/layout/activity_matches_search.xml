@@ -6,8 +6,22 @@
     tools:context=".view.matchesSearch.MatchesSearchActivity">
 
     <TextView
+        android:id="@+id/tv_empty"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
-        android:text="@string/title_search" />
+        android:drawableTop="@drawable/ic_empty"
+        android:text="@string/error_empty" />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_centerInParent="true" />
+
+    <ProgressBar
+        android:id="@+id/progress_bar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true" />
 </RelativeLayout>

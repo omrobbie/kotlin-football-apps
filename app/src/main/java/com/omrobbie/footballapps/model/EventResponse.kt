@@ -1,3 +1,3 @@
 package com.omrobbie.footballapps.model
 
-data class EventResponse(val events: List<EventsItem>?)
+data class EventResponse(val events: MutableList<EventsItem>)

@@ -7,7 +7,7 @@ import java.util.*
 object DateTime {
 
     private fun formatDate(date: String, format: String, isDate: Boolean): String {
-        val old = SimpleDateFormat(if (isDate) "dd/MM/yyyy" else "HH:mm:ss+00:00", Locale.US)
+        val old = SimpleDateFormat(if (isDate) "yyyy-MM-dd" else "HH:mm:ss", Locale.US)
 
         var result = ""
 

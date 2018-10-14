@@ -16,8 +16,17 @@ import com.omrobbie.footballapps.utils.DateTime
 
 import org.jetbrains.anko.*
 
-class MatchAdapter(private val items: MutableList<EventsItem>,
-                   private val clickListener: (EventsItem) -> Unit) : RecyclerView.Adapter<MatchAdapter.ViewHolder>() {
+class MatchesAdapter(private val items: MutableList<EventsItem>,
+                     private val clickListener: (EventsItem) -> Unit) : RecyclerView.Adapter<MatchesAdapter.ViewHolder>() {
+
+    companion object {
+        const val ID_DATE = 1
+        const val ID_TIME = 2
+        const val ID_HOME_TEAM = 3
+        const val ID_HOME_SCORE = 4
+        const val ID_AWAY_TEAM = 5
+        const val ID_AWAY_SCORE = 6
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = ViewHolder(ItemUI().createView(AnkoContext.create(parent.context, parent)))
 
@@ -37,7 +46,7 @@ class MatchAdapter(private val items: MutableList<EventsItem>,
         private val matchAwayScore: TextView = view.findViewById(ID_AWAY_SCORE)
 
         fun bind(item: EventsItem, clickListener: (EventsItem) -> Unit) {
-            matchDate.text = DateTime.getDateFormat(item.strDate)
+            matchDate.text = DateTime.getDateFormat(item.dateEvent)
             matchTime.text = DateTime.getTimeFormat(item.strTime)
             matchHomeTeam.text = item.strHomeTeam ?: "[HOME TEAM]"
             matchHomeScore.text = item.intHomeScore ?: "-"
@@ -48,16 +57,8 @@ class MatchAdapter(private val items: MutableList<EventsItem>,
         }
     }
 
-    companion object {
-        const val ID_DATE = 1
-        const val ID_TIME = 2
-        const val ID_HOME_TEAM = 3
-        const val ID_HOME_SCORE = 4
-        const val ID_AWAY_TEAM = 5
-        const val ID_AWAY_SCORE = 6
-    }
-
     inner class ItemUI : AnkoComponent<ViewGroup> {
+
         override fun createView(ui: AnkoContext<ViewGroup>) = with(ui) {
             linearLayout {
                 lparams(matchParent, wrapContent)
@@ -70,13 +71,13 @@ class MatchAdapter(private val items: MutableList<EventsItem>,
 
                     textView {
                         id = ID_DATE
-                        textColor = ContextCompat.getColor(ctx, R.color.colorPrimary)
+                        textColor = ContextCompat.getColor(context, R.color.colorPrimary)
                         gravity = Gravity.CENTER
                     }.lparams(matchParent, wrapContent)
 
                     textView {
                         id = ID_TIME
-                        textColor = ContextCompat.getColor(ctx, R.color.colorPrimary)
+                        textColor = ContextCompat.getColor(context, R.color.colorPrimary)
                         gravity = Gravity.CENTER
                     }.lparams(matchParent, wrapContent)
 

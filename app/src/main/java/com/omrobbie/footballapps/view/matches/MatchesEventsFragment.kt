@@ -12,7 +12,7 @@ import android.widget.ArrayAdapter
 import com.google.gson.Gson
 
 import com.omrobbie.footballapps.R
-import com.omrobbie.footballapps.adapter.MatchAdapter
+import com.omrobbie.footballapps.adapter.MatchesAdapter
 import com.omrobbie.footballapps.model.EventsItem
 import com.omrobbie.footballapps.model.LeagueResponse
 import com.omrobbie.footballapps.model.LeaguesItem
@@ -25,7 +25,6 @@ import com.omrobbie.footballapps.utils.visible
 import kotlinx.android.synthetic.main.fragment_matches_events.*
 
 import org.jetbrains.anko.bundleOf
-import org.jetbrains.anko.support.v4.ctx
 import org.jetbrains.anko.support.v4.toast
 
 class MatchesEventsFragment : Fragment(), MatchesEventsView {
@@ -47,7 +46,7 @@ class MatchesEventsFragment : Fragment(), MatchesEventsView {
     private lateinit var league: LeaguesItem
 
     private lateinit var events: MutableList<EventsItem>
-    private lateinit var listAdapter: MatchAdapter
+    private lateinit var listAdapter: MatchesAdapter
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_matches_events, container, false)
@@ -78,7 +77,7 @@ class MatchesEventsFragment : Fragment(), MatchesEventsView {
     }
 
     override fun showLeagueList(data: LeagueResponse) {
-        spinner.adapter = ArrayAdapter(ctx, android.R.layout.simple_spinner_dropdown_item, data.leagues)
+        spinner.adapter = ArrayAdapter(context!!, android.R.layout.simple_spinner_dropdown_item, data.leagues)
 
         spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onNothingSelected(parent: AdapterView<*>?) {}
@@ -105,17 +104,17 @@ class MatchesEventsFragment : Fragment(), MatchesEventsView {
         fragmentType = arguments?.get(MATCH_TYPE) as MatchType
         presenter = MatchesEventsPresenter(this, ApiRepository(), Gson())
 
-        spinner.loadFirstText(ctx)
+        spinner.loadFirstText(context!!)
         presenter.getLeagueAll()
 
         events = mutableListOf()
-        listAdapter = MatchAdapter(events) {
+        listAdapter = MatchesAdapter(events) {
             toast("${it.strHomeTeam.toString()} ${getString(R.string.title_vs)} ${it.strAwayTeam.toString()}")
         }
 
         with(recycler_view) {
             adapter = listAdapter
-            layoutManager = LinearLayoutManager(ctx)
+            layoutManager = LinearLayoutManager(context)
         }
     }
 }
