@@ -26,6 +26,10 @@ android {
         buildConfigField "String", "BASE_URL", "\"https://www.thesportsdb.com/api/v1/json/\""
         buildConfigField "String", "TSDB_API_KEY", "\"1\""
     }
+
+    androidExtensions {
+        experimental = true
+    }
 }
 
 ext {
