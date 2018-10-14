@@ -2,13 +2,13 @@ package com.omrobbie.footballapps.model
 
 import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize
-import java.util.*
 
 @Parcelize
 data class EventsItem(
         val id: Long?,
         val idEvent: String?,
-        val dateEvent: Date?,
+        val strDate: String?,
+        val strTime: String?,
 
         // home team
         val idHomeTeam: String?,

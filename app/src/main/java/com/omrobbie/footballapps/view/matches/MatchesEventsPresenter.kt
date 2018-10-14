@@ -13,9 +13,9 @@ import org.jetbrains.anko.uiThread
 
 import kotlin.Exception
 
-class MatchesNextPresenter(private val view: MatchesNextView,
-                           private val apiRepository: ApiRepository,
-                           private val gson: Gson) {
+class MatchesEventsPresenter(private val view: MatchesEventsView,
+                             private val apiRepository: ApiRepository,
+                             private val gson: Gson) {
 
     fun getLeagueAll() {
         view.showLoading()
@@ -39,6 +39,27 @@ class MatchesNextPresenter(private val view: MatchesNextView,
         doAsync {
             val data = gson.fromJson(apiRepository
                     .doRequest(TheSportsDbApi.getLeagueNext(id)),
+                    EventResponse::class.java
+            )
+
+            uiThread {
+                view.hideLoading()
+
+                try {
+                    view.showEventList(data.events as MutableList<EventsItem>)
+                } catch (e: Exception) {
+                    view.showEmptyData()
+                }
+            }
+        }
+    }
+
+    fun getEventsLast(id: String) {
+        view.showLoading()
+
+        doAsync {
+            val data = gson.fromJson(apiRepository
+                    .doRequest(TheSportsDbApi.getLeagueLast(id)),
                     EventResponse::class.java
             )
 

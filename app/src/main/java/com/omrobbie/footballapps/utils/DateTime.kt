@@ -1,19 +1,33 @@
 package com.omrobbie.footballapps.utils
 
-import android.annotation.SuppressLint
+import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.*
 
-@SuppressLint("SimpleDateFormat")
-fun Date?.toShortDate(): String {
-    val formatter = SimpleDateFormat()
-    formatter.applyPattern("dd MMMM yyyy")
-    return formatter.format(this)
-}
+object DateTime {
 
-@SuppressLint("SimpleDateFormat")
-fun Date?.toLongDate(): String {
-    val formatter = SimpleDateFormat()
-    formatter.applyPattern("EEE, dd MMM yyyy")
-    return formatter.format(this)
+    private fun formatDate(date: String, format: String, isDate: Boolean): String {
+        val old = SimpleDateFormat(if (isDate) "dd/MM/yyyy" else "HH:mm:ss+00:00", Locale.US)
+
+        var result = ""
+
+        try {
+            val oldDate = old.parse(date)
+            val newFormat = SimpleDateFormat(format, Locale.US)
+
+            result = newFormat.format(oldDate)
+        } catch (e: ParseException) {
+            e.printStackTrace()
+        }
+
+        return result
+    }
+
+    fun getDateFormat(date: String?): String {
+        return formatDate(date.toString(), "EEE, dd MMM yyyy", true)
+    }
+
+    fun getTimeFormat(date: String?): String {
+        return formatDate(date.toString(), "HH:mm", false)
+    }
 }

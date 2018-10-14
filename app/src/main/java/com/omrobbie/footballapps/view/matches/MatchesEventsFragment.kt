@@ -17,18 +17,32 @@ import com.omrobbie.footballapps.model.EventsItem
 import com.omrobbie.footballapps.model.LeagueResponse
 import com.omrobbie.footballapps.model.LeaguesItem
 import com.omrobbie.footballapps.network.ApiRepository
+import com.omrobbie.footballapps.utils.MatchType
 import com.omrobbie.footballapps.utils.invisible
 import com.omrobbie.footballapps.utils.loadFirstText
 import com.omrobbie.footballapps.utils.visible
 
-import kotlinx.android.synthetic.main.fragment_matches_next.*
+import kotlinx.android.synthetic.main.fragment_matches_events.*
 
+import org.jetbrains.anko.bundleOf
 import org.jetbrains.anko.support.v4.ctx
 import org.jetbrains.anko.support.v4.toast
 
-class MatchesNextFragment : Fragment(), MatchesNextView {
+class MatchesEventsFragment : Fragment(), MatchesEventsView {
 
-    private lateinit var presenter: MatchesNextPresenter
+    companion object {
+        private const val MATCH_TYPE = "MATCH_TYPE"
+
+        fun newInstance(matchType: MatchType): MatchesEventsFragment {
+            val fragment = MatchesEventsFragment()
+            fragment.arguments = bundleOf(MATCH_TYPE to matchType)
+
+            return fragment
+        }
+    }
+
+    private lateinit var fragmentType: MatchType
+    private lateinit var presenter: MatchesEventsPresenter
 
     private lateinit var league: LeaguesItem
 
@@ -36,7 +50,7 @@ class MatchesNextFragment : Fragment(), MatchesNextView {
     private lateinit var listAdapter: MatchAdapter
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.fragment_matches_next, container, false)
+        return inflater.inflate(R.layout.fragment_matches_events, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -72,7 +86,10 @@ class MatchesNextFragment : Fragment(), MatchesNextView {
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
                 league = spinner.selectedItem as LeaguesItem
 
-                presenter.getEventsNext(league.idLeague.toString())
+                when (fragmentType) {
+                    MatchType.NEXT -> presenter.getEventsNext(league.idLeague.toString())
+                    MatchType.LAST -> presenter.getEventsLast(league.idLeague.toString())
+                }
             }
         }
     }
@@ -85,7 +102,8 @@ class MatchesNextFragment : Fragment(), MatchesNextView {
     }
 
     private fun setupEnv() {
-        presenter = MatchesNextPresenter(this, ApiRepository(), Gson())
+        fragmentType = arguments?.get(MATCH_TYPE) as MatchType
+        presenter = MatchesEventsPresenter(this, ApiRepository(), Gson())
 
         spinner.loadFirstText(ctx)
         presenter.getLeagueAll()

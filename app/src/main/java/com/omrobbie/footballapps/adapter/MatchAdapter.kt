@@ -12,7 +12,7 @@ import android.widget.TextView
 
 import com.omrobbie.footballapps.R
 import com.omrobbie.footballapps.model.EventsItem
-import com.omrobbie.footballapps.utils.toLongDate
+import com.omrobbie.footballapps.utils.DateTime
 
 import org.jetbrains.anko.*
 
@@ -30,13 +30,15 @@ class MatchAdapter(private val items: MutableList<EventsItem>,
     inner class ViewHolder(val view: View) : RecyclerView.ViewHolder(view) {
 
         private val matchDate: TextView = view.findViewById(ID_DATE)
+        private val matchTime: TextView = view.findViewById(ID_TIME)
         private val matchHomeTeam: TextView = view.findViewById(ID_HOME_TEAM)
         private val matchHomeScore: TextView = view.findViewById(ID_HOME_SCORE)
         private val matchAwayTeam: TextView = view.findViewById(ID_AWAY_TEAM)
         private val matchAwayScore: TextView = view.findViewById(ID_AWAY_SCORE)
 
         fun bind(item: EventsItem, clickListener: (EventsItem) -> Unit) {
-            matchDate.text = item.dateEvent.toLongDate()
+            matchDate.text = DateTime.getDateFormat(item.strDate)
+            matchTime.text = DateTime.getTimeFormat(item.strTime)
             matchHomeTeam.text = item.strHomeTeam ?: "[HOME TEAM]"
             matchHomeScore.text = item.intHomeScore ?: "-"
             matchAwayTeam.text = item.strAwayTeam ?: "[AWAY TEAM]"
@@ -48,10 +50,11 @@ class MatchAdapter(private val items: MutableList<EventsItem>,
 
     companion object {
         const val ID_DATE = 1
-        const val ID_HOME_TEAM = 2
-        const val ID_HOME_SCORE = 3
-        const val ID_AWAY_TEAM = 4
-        const val ID_AWAY_SCORE = 5
+        const val ID_TIME = 2
+        const val ID_HOME_TEAM = 3
+        const val ID_HOME_SCORE = 4
+        const val ID_AWAY_TEAM = 5
+        const val ID_AWAY_SCORE = 6
     }
 
     inner class ItemUI : AnkoComponent<ViewGroup> {
@@ -71,12 +74,18 @@ class MatchAdapter(private val items: MutableList<EventsItem>,
                         gravity = Gravity.CENTER
                     }.lparams(matchParent, wrapContent)
 
+                    textView {
+                        id = ID_TIME
+                        textColor = ContextCompat.getColor(ctx, R.color.colorPrimary)
+                        gravity = Gravity.CENTER
+                    }.lparams(matchParent, wrapContent)
+
                     linearLayout {
                         gravity = Gravity.CENTER_VERTICAL
 
                         textView {
                             id = ID_HOME_TEAM
-                            gravity = Gravity.END
+                            gravity = Gravity.CENTER
                             textSize = 18f
                         }.lparams(matchParent, wrapContent, 1f)
 
@@ -104,7 +113,7 @@ class MatchAdapter(private val items: MutableList<EventsItem>,
 
                         textView {
                             id = ID_AWAY_TEAM
-                            gravity = Gravity.START
+                            gravity = Gravity.CENTER
                             textSize = 18f
                         }.lparams(matchParent, wrapContent, 1f)
                     }
