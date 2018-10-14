@@ -1,13 +1,15 @@
-package com.omrobbie.footballapps.main
+package com.omrobbie.footballapps.view.main
 
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentTransaction
 import android.support.v7.app.AppCompatActivity
+
 import com.omrobbie.footballapps.R
-import com.omrobbie.footballapps.favorites.FavoritesFragment
-import com.omrobbie.footballapps.matches.MatchesFragment
-import com.omrobbie.footballapps.teams.TeamsFragment
+import com.omrobbie.footballapps.view.favorites.FavoritesFragment
+import com.omrobbie.footballapps.view.matches.MatchesFragment
+import com.omrobbie.footballapps.view.teams.TeamsFragment
+
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {

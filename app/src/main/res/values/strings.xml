@@ -4,4 +4,6 @@
     <string name="title_matches">Matches</string>
     <string name="title_teams">Teams</string>
     <string name="title_favorites">Favorites</string>
+    <string name="title_next">NEXT</string>
+    <string name="title_last">LAST</string>
 </resources>
