@@ -31,5 +31,9 @@
         <activity
             android:name=".view.matchesDetail.MatchesDetailActivity"
             android:launchMode="singleTop" />
+
+        <activity
+            android:name=".view.teamsDetail.TeamsDetailActivity"
+            android:launchMode="singleTop" />
     </application>
 </manifest>

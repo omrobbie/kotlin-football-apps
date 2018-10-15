@@ -22,10 +22,11 @@ import com.omrobbie.footballapps.utils.gone
 import com.omrobbie.footballapps.utils.invisible
 import com.omrobbie.footballapps.utils.loadFirstText
 import com.omrobbie.footballapps.utils.visible
+import com.omrobbie.footballapps.view.teamsDetail.TeamsDetailActivity
 
 import kotlinx.android.synthetic.main.fragment_teams.*
 
-import org.jetbrains.anko.support.v4.toast
+import org.jetbrains.anko.support.v4.startActivity
 
 class TeamsFragment : Fragment(), TeamsView {
 
@@ -110,7 +111,7 @@ class TeamsFragment : Fragment(), TeamsView {
 
         teams = mutableListOf()
         listAdapter = TeamsAdapter(teams) {
-            toast(it.strTeam.toString())
+            startActivity<TeamsDetailActivity>()
         }
 
         with(recycler_view) {

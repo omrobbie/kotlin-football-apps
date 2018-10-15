@@ -4,10 +4,21 @@
     <string name="title_matches">Matches</string>
     <string name="title_teams">Teams</string>
     <string name="title_favorites">Favorites</string>
+
     <string name="title_next">NEXT</string>
     <string name="title_last">LAST</string>
+
     <string name="title_vs">vs</string>
+
     <string name="title_search">Search</string>
+
+    <string name="title_overview">Overview</string>
+    <string name="title_players">Players</string>
+
+    <string name="title_team_logo">Team Logo</string>
+    <string name="title_team_name">Team Name</string>
+    <string name="title_team_years">Years</string>
+    <string name="title_stadium_name">Stadium Name</string>
 
     <string name="error_empty">No data available!</string>
 </resources>
