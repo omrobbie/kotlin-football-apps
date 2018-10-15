@@ -3,17 +3,22 @@ package com.omrobbie.footballapps.view.teams
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.app.AppCompatActivity
+import android.support.v7.widget.DividerItemDecoration
+import android.support.v7.widget.LinearLayoutManager
 import android.view.*
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.SearchView
+
 import com.google.gson.Gson
 
 import com.omrobbie.footballapps.R
+import com.omrobbie.footballapps.adapter.TeamsAdapter
 import com.omrobbie.footballapps.model.LeagueResponse
 import com.omrobbie.footballapps.model.LeaguesItem
 import com.omrobbie.footballapps.model.TeamsItem
 import com.omrobbie.footballapps.network.ApiRepository
+import com.omrobbie.footballapps.utils.gone
 import com.omrobbie.footballapps.utils.invisible
 import com.omrobbie.footballapps.utils.loadFirstText
 import com.omrobbie.footballapps.utils.visible
@@ -27,6 +32,9 @@ class TeamsFragment : Fragment(), TeamsView {
     private lateinit var presenter: TeamsPresenter
 
     private lateinit var league: LeaguesItem
+
+    private lateinit var teams: MutableList<TeamsItem>
+    private lateinit var listAdapter: TeamsAdapter
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_teams, container, false)
@@ -76,12 +84,16 @@ class TeamsFragment : Fragment(), TeamsView {
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
                 league = spinner.selectedItem as LeaguesItem
 
-                toast(league.strLeague.toString())
+                presenter.getTeamAll(league.strLeague.toString())
             }
         }
     }
 
     override fun showTeamList(data: MutableList<TeamsItem>) {
+        teams.clear()
+        teams.addAll(data)
+        listAdapter.notifyDataSetChanged()
+        recycler_view.scrollToPosition(0)
     }
 
     private fun setupEnv() {
@@ -96,6 +108,16 @@ class TeamsFragment : Fragment(), TeamsView {
         spinner.loadFirstText(context!!)
         presenter.getLeagueAll()
 
+        teams = mutableListOf()
+        listAdapter = TeamsAdapter(teams) {
+            toast(it.strTeam.toString())
+        }
+
+        with(recycler_view) {
+            adapter = listAdapter
+            layoutManager = LinearLayoutManager(context)
+            addItemDecoration(DividerItemDecoration(context, DividerItemDecoration.VERTICAL))
+        }
     }
 
     private fun listenSearchView(searchView: SearchView) {
@@ -108,7 +130,7 @@ class TeamsFragment : Fragment(), TeamsView {
 
             override fun onQueryTextChange(query: String?): Boolean {
                 if (query.toString().isEmpty()) spinner_container.visible()
-                else spinner_container.invisible()
+                else spinner_container.gone()
 
                 return false
             }

@@ -15,9 +15,7 @@
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:layout_gravity="top"
-            app:layout_scrollFlags="scroll|enterAlwaysCollapsed"
-            app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
+            android:layout_gravity="top" />
     </android.support.design.widget.AppBarLayout>
 
     <RelativeLayout
