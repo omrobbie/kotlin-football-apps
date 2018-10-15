@@ -33,15 +33,15 @@ class MatchesFragment : Fragment() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-        when (item?.itemId) {
+        return when (item?.itemId) {
             R.id.mn_search -> {
                 context?.startActivity<MatchesSearchActivity>()
 
-                return true
+                true
             }
-        }
 
-        return super.onOptionsItemSelected(item)
+            else -> super.onOptionsItemSelected(item)
+        }
     }
 
     private fun setupEnv() {

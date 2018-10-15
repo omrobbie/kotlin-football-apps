@@ -27,5 +27,9 @@
         <activity
             android:name=".view.matchesSearch.MatchesSearchActivity"
             android:launchMode="singleTop" />
+
+        <activity
+            android:name=".view.matchesDetail.MatchesDetailActivity"
+            android:launchMode="singleTop" />
     </application>
 </manifest>

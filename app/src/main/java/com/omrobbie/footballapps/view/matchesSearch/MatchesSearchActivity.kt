@@ -8,15 +8,18 @@ import android.widget.SearchView
 import com.google.gson.Gson
 
 import com.omrobbie.footballapps.R
+
 import com.omrobbie.footballapps.adapter.MatchesAdapter
 import com.omrobbie.footballapps.model.EventsItem
 import com.omrobbie.footballapps.network.ApiRepository
 import com.omrobbie.footballapps.utils.invisible
 import com.omrobbie.footballapps.utils.visible
+import com.omrobbie.footballapps.view.matchesDetail.INTENT_DETAIL
+import com.omrobbie.footballapps.view.matchesDetail.MatchesDetailActivity
 
 import kotlinx.android.synthetic.main.activity_matches_search.*
 
-import org.jetbrains.anko.toast
+import org.jetbrains.anko.startActivity
 
 class MatchesSearchActivity : AppCompatActivity(), MatchesSearchView {
 
@@ -77,7 +80,7 @@ class MatchesSearchActivity : AppCompatActivity(), MatchesSearchView {
 
         events = mutableListOf()
         listAdapter = MatchesAdapter(events) {
-            toast("${it.strHomeTeam.toString()} ${getString(R.string.title_vs)} ${it.strAwayTeam.toString()}")
+            startActivity<MatchesDetailActivity>(INTENT_DETAIL to it)
         }
 
         with(recycler_view) {

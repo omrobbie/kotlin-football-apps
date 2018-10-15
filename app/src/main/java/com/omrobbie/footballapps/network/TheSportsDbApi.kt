@@ -21,4 +21,8 @@ object TheSportsDbApi {
     fun getEventsSearch(eventName: String): String {
         return "$url/searchevents.php?e=$eventName"
     }
+
+    fun getTeamDetail(id: String): String {
+        return "$url/lookupteam.php?id=$id"
+    }
 }
