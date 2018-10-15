@@ -7,6 +7,9 @@ import android.view.Menu
 import android.view.MenuItem
 
 import com.omrobbie.footballapps.R
+import com.omrobbie.footballapps.adapter.ViewPagerAdapter
+
+import kotlinx.android.synthetic.main.fragment_matches.*
 
 class TeamsDetailActivity : AppCompatActivity() {
 
@@ -50,6 +53,14 @@ class TeamsDetailActivity : AppCompatActivity() {
     private fun setupEnv() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.title = "Team Detail"
+
+        view_pager.adapter = ViewPagerAdapter(supportFragmentManager,
+                mapOf(
+                        getString(R.string.title_overview) to TeamsOverviewFragment(),
+                        getString(R.string.title_players) to TeamsPlayersFragment()
+                )
+        )
+        tab_layout.setupWithViewPager(view_pager)
     }
 
     private fun setFavorite() {
