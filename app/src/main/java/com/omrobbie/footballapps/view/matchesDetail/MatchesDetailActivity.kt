@@ -1,5 +1,6 @@
 package com.omrobbie.footballapps.view.matchesDetail
 
+import android.content.Context
 import android.os.Bundle
 import android.support.v4.content.ContextCompat
 import android.support.v7.app.AppCompatActivity
@@ -24,13 +25,17 @@ import com.squareup.picasso.Picasso
 
 import org.jetbrains.anko.*
 
-const val INTENT_DETAIL = "INTENT_DETAIL"
-
 class MatchesDetailActivity : AppCompatActivity(), MatchesDetailView {
 
     companion object {
+        private const val EXTRA_PARAM = "EXTRA_PARAM"
+
         private const val ID_HOME_BADGE = 0
         private const val ID_AWAY_BADGE = 1
+
+        fun start(context: Context?, event: EventsItem) {
+            context?.startActivity<MatchesDetailActivity>(EXTRA_PARAM to event)
+        }
     }
 
     private lateinit var presenter: DetailPresenter
@@ -38,7 +43,7 @@ class MatchesDetailActivity : AppCompatActivity(), MatchesDetailView {
     private lateinit var progressBar: ProgressBar
     private lateinit var scrollView: ScrollView
 
-    private lateinit var data: EventsItem
+    private lateinit var event: EventsItem
 
     private var menuFavorites: Menu? = null
     private var isFavorite: Boolean = false
@@ -46,10 +51,10 @@ class MatchesDetailActivity : AppCompatActivity(), MatchesDetailView {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        data = intent.getParcelableExtra(INTENT_DETAIL)
+        event = intent.getParcelableExtra(EXTRA_PARAM)
 
-        setupLayout(data)
-        setupEnv(data)
+        setupLayout(event)
+        setupEnv(event)
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {

@@ -26,8 +26,6 @@ import com.omrobbie.footballapps.view.teamsDetail.TeamsDetailActivity
 
 import kotlinx.android.synthetic.main.fragment_teams.*
 
-import org.jetbrains.anko.support.v4.startActivity
-
 class TeamsFragment : Fragment(), TeamsView {
 
     private lateinit var presenter: TeamsPresenter
@@ -111,7 +109,7 @@ class TeamsFragment : Fragment(), TeamsView {
 
         teams = mutableListOf()
         listAdapter = TeamsAdapter(teams) {
-            startActivity<TeamsDetailActivity>()
+            TeamsDetailActivity.start(context, it)
         }
 
         with(recycler_view) {
@@ -135,7 +133,7 @@ class TeamsFragment : Fragment(), TeamsView {
                     presenter.getTeamAll(spinner.selectedItem.toString())
                 } else spinner_container.gone()
 
-                return false
+                return true
             }
         })
     }

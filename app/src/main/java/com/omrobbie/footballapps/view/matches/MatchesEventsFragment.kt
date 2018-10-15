@@ -21,13 +21,11 @@ import com.omrobbie.footballapps.utils.MatchType
 import com.omrobbie.footballapps.utils.invisible
 import com.omrobbie.footballapps.utils.loadFirstText
 import com.omrobbie.footballapps.utils.visible
-import com.omrobbie.footballapps.view.matchesDetail.INTENT_DETAIL
 import com.omrobbie.footballapps.view.matchesDetail.MatchesDetailActivity
 
 import kotlinx.android.synthetic.main.fragment_matches_events.*
 
 import org.jetbrains.anko.bundleOf
-import org.jetbrains.anko.support.v4.startActivity
 
 class MatchesEventsFragment : Fragment(), MatchesEventsView {
 
@@ -111,7 +109,7 @@ class MatchesEventsFragment : Fragment(), MatchesEventsView {
 
         events = mutableListOf()
         listAdapter = MatchesAdapter(events) {
-            startActivity<MatchesDetailActivity>(INTENT_DETAIL to it)
+            MatchesDetailActivity.start(context, it)
         }
 
         with(recycler_view) {
