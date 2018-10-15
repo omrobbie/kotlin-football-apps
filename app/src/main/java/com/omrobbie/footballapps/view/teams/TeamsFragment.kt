@@ -123,14 +123,16 @@ class TeamsFragment : Fragment(), TeamsView {
     private fun listenSearchView(searchView: SearchView) {
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
-                toast(query.toString())
+                presenter.getTeamSearch(query.toString())
 
                 return true
             }
 
             override fun onQueryTextChange(query: String?): Boolean {
-                if (query.toString().isEmpty()) spinner_container.visible()
-                else spinner_container.gone()
+                if (query.toString().isEmpty()) {
+                    spinner_container.visible()
+                    presenter.getTeamAll(spinner.selectedItem.toString())
+                } else spinner_container.gone()
 
                 return false
             }

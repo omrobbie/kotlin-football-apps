@@ -41,7 +41,33 @@ class TeamsPresenter(private val view: TeamsView,
 
             uiThread {
                 view.hideLoading()
-                view.showTeamList(data.teams)
+
+                try {
+                    view.showTeamList(data.teams)
+                } catch (e: Exception) {
+                    view.showEmptyData()
+                }
+            }
+        }
+    }
+
+    fun getTeamSearch(teamName: String = "") {
+        view.showLoading()
+
+        doAsync {
+            val data = gson.fromJson(apiRepository
+                    .doRequest(TheSportsDbApi.getTeamSearch(teamName)),
+                    TeamResponse::class.java
+            )
+
+            uiThread {
+                view.hideLoading()
+
+                try {
+                    view.showTeamList(data.teams)
+                } catch (e: Exception) {
+                    view.showEmptyData()
+                }
             }
         }
     }
