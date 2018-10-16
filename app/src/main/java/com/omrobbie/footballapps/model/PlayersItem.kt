@@ -1,0 +1,10 @@
+package com.omrobbie.footballapps.model
+
+import android.os.Parcelable
+import kotlinx.android.parcel.Parcelize
+
+@Parcelize
+data class PlayersItem(
+        val strCutout: String?,
+        val strPlayer: String?,
+        val strPosition: String?) : Parcelable

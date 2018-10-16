@@ -17,9 +17,9 @@ class TeamsOverviewFragment : Fragment() {
     companion object {
         private const val EXTRA_PARAM = "EXTRA_PARAM"
 
-        fun newInstance(overview: String): TeamsOverviewFragment {
+        fun newInstance(args: String): TeamsOverviewFragment {
             val fragment = TeamsOverviewFragment()
-            fragment.arguments = bundleOf(EXTRA_PARAM to overview)
+            fragment.arguments = bundleOf(EXTRA_PARAM to args)
 
             return fragment
         }

@@ -17,8 +17,8 @@ class TeamsAdapter(private val items: MutableList<TeamsItem>,
                    private val clickListener: (TeamsItem) -> Unit) : RecyclerView.Adapter<TeamsAdapter.ViewHolder>() {
 
     companion object {
-        const val ID_IMAGE = 1
-        const val ID_NAME = 2
+        private const val ID_IMAGE = 1
+        private const val ID_NAME = 2
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = ViewHolder(ItemUI().createView(AnkoContext.create(parent.context, parent)))
@@ -31,15 +31,15 @@ class TeamsAdapter(private val items: MutableList<TeamsItem>,
 
     inner class ViewHolder(val view: View) : RecyclerView.ViewHolder(view) {
 
-        private val itemImage: ImageView = view.findViewById(ID_IMAGE)
-        private val itemName: TextView = view.findViewById(ID_NAME)
+        private val teamImage: ImageView = view.findViewById(ID_IMAGE)
+        private val teamName: TextView = view.findViewById(ID_NAME)
 
         fun bind(item: TeamsItem, clickListener: (TeamsItem) -> Unit) {
             Picasso.get()
                     .load(item.strTeamBadge)
-                    .into(itemImage)
+                    .into(teamImage)
 
-            itemName.text = item.strTeam
+            teamName.text = item.strTeam
 
             itemView.setOnClickListener { clickListener(item) }
         }

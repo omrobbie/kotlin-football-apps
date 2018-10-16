@@ -20,12 +20,12 @@ class MatchesAdapter(private val items: MutableList<EventsItem>,
                      private val clickListener: (EventsItem) -> Unit) : RecyclerView.Adapter<MatchesAdapter.ViewHolder>() {
 
     companion object {
-        const val ID_DATE = 1
-        const val ID_TIME = 2
-        const val ID_HOME_TEAM = 3
-        const val ID_HOME_SCORE = 4
-        const val ID_AWAY_TEAM = 5
-        const val ID_AWAY_SCORE = 6
+        private const val ID_DATE = 1
+        private const val ID_TIME = 2
+        private const val ID_HOME_TEAM = 3
+        private const val ID_HOME_SCORE = 4
+        private const val ID_AWAY_TEAM = 5
+        private const val ID_AWAY_SCORE = 6
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = ViewHolder(ItemUI().createView(AnkoContext.create(parent.context, parent)))

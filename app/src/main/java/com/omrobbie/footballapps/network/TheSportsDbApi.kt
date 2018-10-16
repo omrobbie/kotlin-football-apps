@@ -33,4 +33,8 @@ object TheSportsDbApi {
     fun getTeamSearch(teamName: String): String {
         return "$url/searchteams.php?t=$teamName"
     }
+
+    fun getPlayerAll(teamName: String): String {
+        return "$url/searchplayers.php?t=$teamName"
+    }
 }

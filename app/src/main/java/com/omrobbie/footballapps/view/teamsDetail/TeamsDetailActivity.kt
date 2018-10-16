@@ -75,7 +75,7 @@ class TeamsDetailActivity : AppCompatActivity() {
         view_pager.adapter = ViewPagerAdapter(supportFragmentManager,
                 mapOf(
                         getString(R.string.title_overview) to TeamsOverviewFragment.newInstance(team.strDescriptionEN.toString()),
-                        getString(R.string.title_players) to TeamsPlayersFragment()
+                        getString(R.string.title_players) to TeamsPlayersFragment.newInstance(team.strTeam.toString())
                 )
         )
         tab_layout.setupWithViewPager(view_pager)
