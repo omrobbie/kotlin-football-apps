@@ -16,11 +16,11 @@ import com.omrobbie.footballapps.model.PlayersItem
 import com.omrobbie.footballapps.network.ApiRepository
 import com.omrobbie.footballapps.utils.invisible
 import com.omrobbie.footballapps.utils.visible
+import com.omrobbie.footballapps.view.playersDetail.PlayersDetailActivity
 
 import kotlinx.android.synthetic.main.fragment_teams_players.*
 
 import org.jetbrains.anko.bundleOf
-import org.jetbrains.anko.support.v4.toast
 
 class TeamsPlayersFragment : Fragment(), TeamsPlayersView {
 
@@ -82,7 +82,7 @@ class TeamsPlayersFragment : Fragment(), TeamsPlayersView {
 
         players = mutableListOf()
         listAdapter = PlayersAdapter(players) {
-            toast(it.strPlayer.toString())
+            PlayersDetailActivity.start(context, it)
         }
 
         with(recycler_view) {

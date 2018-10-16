@@ -36,5 +36,9 @@
             android:name=".view.teamsDetail.TeamsDetailActivity"
             android:launchMode="singleTop"
             android:theme="@style/AppTheme.NoActionBar" />
+
+        <activity
+            android:name=".view.playersDetail.PlayersDetailActivity"
+            android:launchMode="singleTop" />
     </application>
 </manifest>
