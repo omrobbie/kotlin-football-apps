@@ -20,5 +20,8 @@
     <string name="title_team_years">Years</string>
     <string name="title_stadium_name">Stadium Name</string>
 
+    <string name="title_weight">Weight (Kg)</string>
+    <string name="title_height">Height (m)</string>
+
     <string name="error_empty">No data available!</string>
 </resources>
