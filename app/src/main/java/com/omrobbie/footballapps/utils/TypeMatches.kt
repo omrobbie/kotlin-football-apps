@@ -1,5 +1,5 @@
 package com.omrobbie.footballapps.utils
 
-enum class MatchType {
+enum class TypeMatches {
     NEXT, LAST
 }

@@ -37,7 +37,7 @@ data class EventsItem(
         val strAwayLineupSubstitutes: String?) : Parcelable {
 
     companion object {
-        const val TABLE_FAVORITES = "TABLE_FAVORITES"
+        const val TABLE_EVENTS = "TABLE_EVENTS"
         const val ID = "ID"
         const val ID_EVENT = "ID_EVENT"
         const val DATE = "DATE"

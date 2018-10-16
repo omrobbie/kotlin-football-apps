@@ -47,7 +47,7 @@ class DetailPresenter(private val view: MatchesDetailView,
     fun addFavorites(context: Context, data: EventsItem) {
         try {
             context.database.use {
-                insert(EventsItem.TABLE_FAVORITES,
+                insert(EventsItem.TABLE_EVENTS,
                         EventsItem.ID_EVENT to data.idEvent,
                         EventsItem.DATE to data.dateEvent,
                         EventsItem.TIME to data.strTime,
@@ -86,7 +86,7 @@ class DetailPresenter(private val view: MatchesDetailView,
     fun removeFavorites(context: Context, data: EventsItem) {
         try {
             context.database.use {
-                delete(EventsItem.TABLE_FAVORITES,
+                delete(EventsItem.TABLE_EVENTS,
                         EventsItem.ID_EVENT + " = {id}",
                         "id" to data.idEvent.toString())
             }
@@ -99,7 +99,7 @@ class DetailPresenter(private val view: MatchesDetailView,
         var bFavorite = false
 
         context.database.use {
-            val favorites = select(EventsItem.TABLE_FAVORITES)
+            val favorites = select(EventsItem.TABLE_EVENTS)
                     .whereArgs(EventsItem.ID_EVENT + " = {id}",
                             "id" to data.idEvent.toString())
                     .parseList(classParser<EventsItem>())

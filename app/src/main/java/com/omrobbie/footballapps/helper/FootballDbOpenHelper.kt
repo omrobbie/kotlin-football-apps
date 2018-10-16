@@ -24,7 +24,7 @@ class FootballDbOpenHelper(context: Context) : ManagedSQLiteOpenHelper(context, 
     }
 
     override fun onCreate(db: SQLiteDatabase) {
-        db.createTable(EventsItem.TABLE_FAVORITES, true,
+        db.createTable(EventsItem.TABLE_EVENTS, true,
                 EventsItem.ID to INTEGER + PRIMARY_KEY + AUTOINCREMENT,
                 EventsItem.ID_EVENT to TEXT,
                 EventsItem.DATE to TEXT,
@@ -68,7 +68,7 @@ class FootballDbOpenHelper(context: Context) : ManagedSQLiteOpenHelper(context, 
     }
 
     override fun onUpgrade(db: SQLiteDatabase, oldVersion: Int, newVersion: Int) {
-        db.dropTable(EventsItem.TABLE_FAVORITES, true)
+        db.dropTable(EventsItem.TABLE_EVENTS, true)
         db.dropTable(PlayersItem.TABLE_PLAYERS, true)
     }
 }

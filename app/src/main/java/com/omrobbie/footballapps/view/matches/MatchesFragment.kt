@@ -7,7 +7,7 @@ import android.view.*
 
 import com.omrobbie.footballapps.R
 import com.omrobbie.footballapps.adapter.ViewPagerAdapter
-import com.omrobbie.footballapps.utils.MatchType
+import com.omrobbie.footballapps.utils.TypeMatches
 import com.omrobbie.footballapps.view.matchesSearch.MatchesSearchActivity
 
 import kotlinx.android.synthetic.main.fragment_matches.*
@@ -52,8 +52,8 @@ class MatchesFragment : Fragment() {
 
             view_pager.adapter = ViewPagerAdapter(supportFragmentManager,
                     mapOf(
-                            getString(R.string.title_next).capitalize() to MatchesEventsFragment.newInstance(MatchType.NEXT),
-                            getString(R.string.title_last).capitalize() to MatchesEventsFragment.newInstance(MatchType.LAST)
+                            getString(R.string.title_next).capitalize() to MatchesEventsFragment.newInstance(TypeMatches.NEXT),
+                            getString(R.string.title_last).capitalize() to MatchesEventsFragment.newInstance(TypeMatches.LAST)
                     )
             )
             tab_layout.setupWithViewPager(view_pager)

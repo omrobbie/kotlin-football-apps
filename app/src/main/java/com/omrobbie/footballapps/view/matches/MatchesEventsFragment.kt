@@ -17,7 +17,7 @@ import com.omrobbie.footballapps.model.EventsItem
 import com.omrobbie.footballapps.model.LeagueResponse
 import com.omrobbie.footballapps.model.LeaguesItem
 import com.omrobbie.footballapps.network.ApiRepository
-import com.omrobbie.footballapps.utils.MatchType
+import com.omrobbie.footballapps.utils.TypeMatches
 import com.omrobbie.footballapps.utils.invisible
 import com.omrobbie.footballapps.utils.loadFirstText
 import com.omrobbie.footballapps.utils.visible
@@ -30,17 +30,18 @@ import org.jetbrains.anko.bundleOf
 class MatchesEventsFragment : Fragment(), MatchesEventsView {
 
     companion object {
-        private const val MATCH_TYPE = "MATCH_TYPE"
+        private const val TYPE_MATCHES = "TYPE_MATCHES"
 
-        fun newInstance(matchType: MatchType): MatchesEventsFragment {
+        fun newInstance(fragmentType: TypeMatches): MatchesEventsFragment {
             val fragment = MatchesEventsFragment()
-            fragment.arguments = bundleOf(MATCH_TYPE to matchType)
+            fragment.arguments = bundleOf(TYPE_MATCHES to fragmentType)
 
             return fragment
         }
     }
 
-    private lateinit var fragmentType: MatchType
+    private lateinit var fragmentType: TypeMatches
+
     private lateinit var presenter: MatchesEventsPresenter
 
     private lateinit var league: LeaguesItem
@@ -86,8 +87,8 @@ class MatchesEventsFragment : Fragment(), MatchesEventsView {
                 league = spinner.selectedItem as LeaguesItem
 
                 when (fragmentType) {
-                    MatchType.NEXT -> presenter.getEventsNext(league.idLeague.toString())
-                    MatchType.LAST -> presenter.getEventsLast(league.idLeague.toString())
+                    TypeMatches.NEXT -> presenter.getEventsNext(league.idLeague.toString())
+                    TypeMatches.LAST -> presenter.getEventsLast(league.idLeague.toString())
                 }
             }
         }
@@ -101,7 +102,7 @@ class MatchesEventsFragment : Fragment(), MatchesEventsView {
     }
 
     private fun setupEnv() {
-        fragmentType = arguments?.get(MATCH_TYPE) as MatchType
+        fragmentType = arguments?.get(TYPE_MATCHES) as TypeMatches
         presenter = MatchesEventsPresenter(this, ApiRepository(), Gson())
 
         spinner.loadFirstText(context!!)
