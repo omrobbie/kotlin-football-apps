@@ -52,8 +52,8 @@ class MatchesFragment : Fragment() {
 
             view_pager.adapter = ViewPagerAdapter(supportFragmentManager,
                     mapOf(
-                            getString(R.string.title_next) to MatchesEventsFragment.newInstance(MatchType.NEXT),
-                            getString(R.string.title_last) to MatchesEventsFragment.newInstance(MatchType.LAST)
+                            getString(R.string.title_next).capitalize() to MatchesEventsFragment.newInstance(MatchType.NEXT),
+                            getString(R.string.title_last).capitalize() to MatchesEventsFragment.newInstance(MatchType.LAST)
                     )
             )
             tab_layout.setupWithViewPager(view_pager)

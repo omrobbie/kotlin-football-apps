@@ -105,7 +105,6 @@ class TeamsFragment : Fragment(), TeamsView {
         presenter = TeamsPresenter(this, ApiRepository(), Gson())
 
         spinner.loadFirstText(context!!)
-        presenter.getLeagueAll()
 
         teams = mutableListOf()
         listAdapter = TeamsAdapter(teams) {
@@ -117,6 +116,8 @@ class TeamsFragment : Fragment(), TeamsView {
             layoutManager = LinearLayoutManager(context)
             addItemDecoration(DividerItemDecoration(context, DividerItemDecoration.VERTICAL))
         }
+
+        presenter.getLeagueAll()
     }
 
     private fun listenSearchView(searchView: SearchView) {

@@ -105,7 +105,6 @@ class MatchesEventsFragment : Fragment(), MatchesEventsView {
         presenter = MatchesEventsPresenter(this, ApiRepository(), Gson())
 
         spinner.loadFirstText(context!!)
-        presenter.getLeagueAll()
 
         events = mutableListOf()
         listAdapter = MatchesAdapter(events) {
@@ -116,5 +115,7 @@ class MatchesEventsFragment : Fragment(), MatchesEventsView {
             adapter = listAdapter
             layoutManager = LinearLayoutManager(context)
         }
+
+        presenter.getLeagueAll()
     }
 }

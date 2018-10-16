@@ -168,12 +168,12 @@ class MatchesDetailActivity : AppCompatActivity(), MatchesDetailView {
 
     private fun setupEnv(data: EventsItem) {
         presenter = DetailPresenter(this, ApiRepository(), Gson())
-        presenter.getTeamDetail(data.idHomeTeam.toString(), data.idAwayTeam.toString())
-
         isFavorite = presenter.isFavorite(ctx, event)
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.title = "Match Detail"
+
+        presenter.getTeamDetail(data.idHomeTeam.toString(), data.idAwayTeam.toString())
     }
 
     private fun setFavorite() {

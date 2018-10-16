@@ -78,8 +78,6 @@ class TeamsPlayersFragment : Fragment(), TeamsPlayersView {
     private fun setupEnv() {
         presenter = TeamsPlayersPresenter(this, ApiRepository(), Gson())
 
-        presenter.getPlayerAll(arguments?.getString(EXTRA_PARAM).toString())
-
         players = mutableListOf()
         listAdapter = PlayersAdapter(players) {
             PlayersDetailActivity.start(context, it)
@@ -90,5 +88,7 @@ class TeamsPlayersFragment : Fragment(), TeamsPlayersView {
             layoutManager = LinearLayoutManager(context)
             addItemDecoration(DividerItemDecoration(context, DividerItemDecoration.VERTICAL))
         }
+
+        presenter.getPlayerAll(arguments?.getString(EXTRA_PARAM).toString())
     }
 }

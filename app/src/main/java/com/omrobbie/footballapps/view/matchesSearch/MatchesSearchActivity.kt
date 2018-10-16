@@ -72,8 +72,6 @@ class MatchesSearchActivity : AppCompatActivity(), MatchesSearchView {
     private fun setupEnv() {
         presenter = MatchesSearchPresenter(this, ApiRepository(), Gson())
 
-        presenter.getEventsSearch()
-
         events = mutableListOf()
         listAdapter = MatchesAdapter(events) {
             MatchesDetailActivity.start(this, it)
@@ -83,6 +81,8 @@ class MatchesSearchActivity : AppCompatActivity(), MatchesSearchView {
             adapter = listAdapter
             layoutManager = android.support.v7.widget.LinearLayoutManager(context)
         }
+
+        presenter.getEventsSearch()
     }
 
     private fun listenSearchView(searchView: SearchView) {
