@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 
 import com.omrobbie.footballapps.R
+import com.omrobbie.footballapps.adapter.ViewPagerAdapter
 
 import kotlinx.android.synthetic.main.fragment_favorites.*
 
@@ -26,6 +27,14 @@ class FavoritesFragment : Fragment() {
     private fun setupEnv() {
         with(activity as AppCompatActivity) {
             setSupportActionBar(toolbar)
+
+            view_pager.adapter = ViewPagerAdapter(supportFragmentManager,
+                    mapOf(
+                            getString(R.string.title_matches).capitalize() to FavoritesMatchesFragment(),
+                            getString(R.string.title_teams).capitalize() to FavoritesTeamsFragment()
+                    )
+            )
+            tab_layout.setupWithViewPager(view_pager)
         }
     }
 }
