@@ -4,7 +4,7 @@ import android.content.Context
 import android.database.sqlite.SQLiteDatabase
 
 import com.omrobbie.footballapps.model.EventsItem
-import com.omrobbie.footballapps.model.PlayersItem
+import com.omrobbie.footballapps.model.TeamsItem
 
 import org.jetbrains.anko.db.*
 
@@ -56,20 +56,19 @@ class FootballDbOpenHelper(context: Context) : ManagedSQLiteOpenHelper(context, 
                 EventsItem.AWAY_LINEUP_FORWARD to TEXT,
                 EventsItem.AWAY_LINEUP_SUBSTITUTES to TEXT)
 
-        db.createTable(PlayersItem.TABLE_PLAYERS, true,
-                PlayersItem.ID to INTEGER + PRIMARY_KEY + AUTOINCREMENT,
-                PlayersItem.CUTOUT to TEXT,
-                PlayersItem.PLAYER to TEXT,
-                PlayersItem.POSITION to TEXT,
-                PlayersItem.WEIGHT to TEXT,
-                PlayersItem.HEIGHT to TEXT,
-                PlayersItem.DESCRIPTION to TEXT,
-                PlayersItem.FAN_ART to TEXT)
+        db.createTable(TeamsItem.TABLE_TEAMS, true,
+                TeamsItem.ID to INTEGER + PRIMARY_KEY + AUTOINCREMENT,
+                TeamsItem.ID_TEAM to TEXT,
+                TeamsItem.TEAM_BADGE to TEXT,
+                TeamsItem.TEAM to TEXT,
+                TeamsItem.FORMED_YEAR to TEXT,
+                TeamsItem.STADIUM to TEXT,
+                TeamsItem.DESCRIPTION to TEXT)
     }
 
     override fun onUpgrade(db: SQLiteDatabase, oldVersion: Int, newVersion: Int) {
         db.dropTable(EventsItem.TABLE_EVENTS, true)
-        db.dropTable(PlayersItem.TABLE_PLAYERS, true)
+        db.dropTable(TeamsItem.TABLE_TEAMS, true)
     }
 }
 

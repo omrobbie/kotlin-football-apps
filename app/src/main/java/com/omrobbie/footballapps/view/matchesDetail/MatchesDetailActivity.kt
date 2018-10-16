@@ -16,6 +16,7 @@ import com.google.gson.Gson
 
 import com.omrobbie.footballapps.R
 import com.omrobbie.footballapps.R.id.mn_favorites
+import com.omrobbie.footballapps.helper.FavoritedEventsDb
 import com.omrobbie.footballapps.model.EventsItem
 import com.omrobbie.footballapps.model.TeamsItem
 import com.omrobbie.footballapps.network.ApiRepository
@@ -48,6 +49,8 @@ class MatchesDetailActivity : AppCompatActivity(), MatchesDetailView {
     private var menuFavorites: Menu? = null
     private var isFavorite: Boolean = false
 
+    private val favoritedEventsDb = FavoritedEventsDb()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -75,9 +78,9 @@ class MatchesDetailActivity : AppCompatActivity(), MatchesDetailView {
 
             mn_favorites -> {
                 if (isFavorite) {
-                    presenter.removeFavorites(ctx, event)
+                    favoritedEventsDb.removeFavorites(ctx, event)
                 } else {
-                    presenter.addFavorites(ctx, event)
+                    favoritedEventsDb.addFavorites(ctx, event)
                 }
 
                 isFavorite = !isFavorite
@@ -168,7 +171,7 @@ class MatchesDetailActivity : AppCompatActivity(), MatchesDetailView {
 
     private fun setupEnv(data: EventsItem) {
         presenter = DetailPresenter(this, ApiRepository(), Gson())
-        isFavorite = presenter.isFavorite(ctx, event)
+        isFavorite = favoritedEventsDb.isFavorite(ctx, event)
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.title = "Match Detail"

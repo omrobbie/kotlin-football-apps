@@ -2,6 +2,7 @@ package com.omrobbie.footballapps.view.favorites
 
 import android.os.Bundle
 import android.support.v4.app.Fragment
+import android.support.v7.widget.DividerItemDecoration
 import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
@@ -9,14 +10,14 @@ import android.view.ViewGroup
 
 import com.omrobbie.footballapps.R
 import com.omrobbie.footballapps.adapter.MatchesAdapter
-import com.omrobbie.footballapps.adapter.PlayersAdapter
+import com.omrobbie.footballapps.adapter.TeamsAdapter
 import com.omrobbie.footballapps.model.EventsItem
-import com.omrobbie.footballapps.model.PlayersItem
+import com.omrobbie.footballapps.model.TeamsItem
 import com.omrobbie.footballapps.utils.TypeFavorites
 import com.omrobbie.footballapps.utils.invisible
 import com.omrobbie.footballapps.utils.visible
 import com.omrobbie.footballapps.view.matchesDetail.MatchesDetailActivity
-import com.omrobbie.footballapps.view.playersDetail.PlayersDetailActivity
+import com.omrobbie.footballapps.view.teamsDetail.TeamsDetailActivity
 
 import kotlinx.android.synthetic.main.fragment_favorites_matches.*
 
@@ -42,8 +43,8 @@ class FavoritesTabsFragment : Fragment(), FavoritesTabsView {
     private lateinit var events: MutableList<EventsItem>
     private lateinit var eventsAdapter: MatchesAdapter
 
-    private lateinit var players: MutableList<PlayersItem>
-    private lateinit var playersAdapter: PlayersAdapter
+    private lateinit var teams: MutableList<TeamsItem>
+    private lateinit var teamsAdapter: TeamsAdapter
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_favorites_matches, container, false)
@@ -58,8 +59,8 @@ class FavoritesTabsFragment : Fragment(), FavoritesTabsView {
     override fun onResume() {
         super.onResume()
 
-        if(fragmentType == TypeFavorites.MATCHES) presenter.getFavoritedEvents()
-        else presenter.getFavoritedPlayers()
+        if (fragmentType == TypeFavorites.MATCHES) presenter.getFavoritedEvents()
+        else presenter.getFavoritedTeams()
     }
 
     override fun showLoading() {
@@ -87,10 +88,10 @@ class FavoritesTabsFragment : Fragment(), FavoritesTabsView {
         recycler_view.scrollToPosition(0)
     }
 
-    override fun showPlayerList(data: MutableList<PlayersItem>) {
-        players.clear()
-        players.addAll(data)
-        playersAdapter.notifyDataSetChanged()
+    override fun showTeamList(data: MutableList<TeamsItem>) {
+        teams.clear()
+        teams.addAll(data)
+        teamsAdapter.notifyDataSetChanged()
         recycler_view.scrollToPosition(0)
     }
 
@@ -98,29 +99,29 @@ class FavoritesTabsFragment : Fragment(), FavoritesTabsView {
         fragmentType = arguments?.get(TYPE_FAVORITES) as TypeFavorites
         presenter = FavoritesTabsPresenter(context, this)
 
-        events = mutableListOf()
-        players = mutableListOf()
-
         when (fragmentType) {
             TypeFavorites.MATCHES -> {
+                events = mutableListOf()
                 eventsAdapter = MatchesAdapter(events) {
                     MatchesDetailActivity.start(context, it)
                 }
             }
 
             TypeFavorites.TEAMS -> {
-                playersAdapter = PlayersAdapter(players) {
-                    PlayersDetailActivity.start(context, it)
+                teams = mutableListOf()
+                teamsAdapter = TeamsAdapter(teams) {
+                    TeamsDetailActivity.start(context, it)
                 }
             }
         }
 
         with(recycler_view) {
-            adapter = if(fragmentType == TypeFavorites.MATCHES) eventsAdapter else playersAdapter
+            adapter = if (fragmentType == TypeFavorites.MATCHES) eventsAdapter else teamsAdapter
             layoutManager = LinearLayoutManager(context)
+            if (fragmentType == TypeFavorites.TEAMS) addItemDecoration(DividerItemDecoration(context, DividerItemDecoration.VERTICAL))
         }
 
-        if(fragmentType == TypeFavorites.MATCHES) presenter.getFavoritedEvents()
-        else presenter.getFavoritedPlayers()
+        if (fragmentType == TypeFavorites.MATCHES) presenter.getFavoritedEvents()
+        else presenter.getFavoritedTeams()
     }
 }

@@ -9,12 +9,14 @@ import android.view.MenuItem
 
 import com.omrobbie.footballapps.R
 import com.omrobbie.footballapps.adapter.ViewPagerAdapter
+import com.omrobbie.footballapps.helper.FavoritedTeamsDb
 import com.omrobbie.footballapps.model.TeamsItem
 
 import com.squareup.picasso.Picasso
 
 import kotlinx.android.synthetic.main.activity_teams_detail.*
 
+import org.jetbrains.anko.ctx
 import org.jetbrains.anko.startActivity
 
 class TeamsDetailActivity : AppCompatActivity() {
@@ -31,6 +33,8 @@ class TeamsDetailActivity : AppCompatActivity() {
 
     private var menuFavorites: Menu? = null
     private var isFavorite: Boolean = false
+
+    private val favoritedTeamsDb = FavoritedTeamsDb()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -56,6 +60,12 @@ class TeamsDetailActivity : AppCompatActivity() {
             }
 
             R.id.mn_favorites -> {
+                if (isFavorite) {
+                    favoritedTeamsDb.removeFavorites(ctx, team)
+                } else {
+                    favoritedTeamsDb.addFavorites(ctx, team)
+                }
+
                 isFavorite = !isFavorite
                 setFavorite()
 
@@ -72,6 +82,7 @@ class TeamsDetailActivity : AppCompatActivity() {
 
         loadData()
 
+        isFavorite = favoritedTeamsDb.isFavorite(ctx, team)
         view_pager.adapter = ViewPagerAdapter(supportFragmentManager,
                 mapOf(
                         getString(R.string.title_overview) to TeamsOverviewFragment.newInstance(team.strDescriptionEN.toString()),

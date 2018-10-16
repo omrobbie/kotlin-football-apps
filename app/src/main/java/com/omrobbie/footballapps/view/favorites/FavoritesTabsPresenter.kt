@@ -4,7 +4,7 @@ import android.content.Context
 
 import com.omrobbie.footballapps.helper.database
 import com.omrobbie.footballapps.model.EventsItem
-import com.omrobbie.footballapps.model.PlayersItem
+import com.omrobbie.footballapps.model.TeamsItem
 
 import org.jetbrains.anko.db.classParser
 import org.jetbrains.anko.db.select
@@ -33,14 +33,14 @@ class FavoritesTabsPresenter(private val context: Context?,
         }
     }
 
-    fun getFavoritedPlayers() {
+    fun getFavoritedTeams() {
         view.showLoading()
 
-        val data: MutableList<PlayersItem> = mutableListOf()
+        val data: MutableList<TeamsItem> = mutableListOf()
 
         context?.database?.use {
-            val favorites = select(PlayersItem.TABLE_PLAYERS)
-                    .parseList(classParser<PlayersItem>())
+            val favorites = select(TeamsItem.TABLE_TEAMS)
+                    .parseList(classParser<TeamsItem>())
 
             data.addAll(favorites)
         }
@@ -48,7 +48,7 @@ class FavoritesTabsPresenter(private val context: Context?,
         view.hideLoading()
 
         if (data.size > 0) {
-            view.showPlayerList(data)
+            view.showTeamList(data)
         } else {
             view.showEmptyData()
         }
